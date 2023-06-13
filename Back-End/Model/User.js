@@ -3,14 +3,9 @@ const Schema = mongoose.Schema;
 const crypto = require('crypto');
 const uuidv1 = require("uuid/v1");
 const userSchema = new Schema({
-    name: {
+    fullName: {
         type: String, 
         required: true,
-        maxlength: 32,
-        trim: true
-      },
-      lastname: {
-        type: String,
         maxlength: 32,
         trim: true
       },
@@ -20,11 +15,12 @@ const userSchema = new Schema({
         required: true,
         unique: true
       },
-      userinfo: {
-        type: String,
-        trim: true
+      mobileNumber:{
+        type:Number,
+        maxlength: 10,
+        unique:true,
+        required: true
       },
-    
       encry_password: {
         type: String,
         require: true
@@ -34,10 +30,28 @@ const userSchema = new Schema({
         type: Number,
         default: 0
       },
+      address : {
+        type: String,
+        require: true
+      },
       adoptionlist: {
         type: Array,
         default: []
-      }
+      },
+      verifiedUser:{
+        type: String,
+        default:"Not Verified",
+        enum: ["Verified", "Not Verified"]
+     
+      },
+      userinfo: {
+        type: String,
+        trim: true
+      },
+      idPhoto:{
+        data : Buffer,
+        contentType : String
+    },
 }, {timestamps:true});
 
 userSchema.virtual('password')
